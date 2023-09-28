@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="ConceptGraphs: Open-Vocabulary 3D Scene Graphs for Perception and Planning">
+  <meta name="keywords"
+    content="ConceptGraphs, ConceptFusion, 3D Mapping, SLAM, Open-set, Multimodal, Foundation models, CLIP, LLM, VLM">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ConceptGraphs: Open-Vocabulary 3D Scene Graphs for Perception and Planning</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JX0F75QDW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <script>
+    // Function to randomly shuffle the first two authors
+    function shuffleFirstTwoAuthors() {
+      var authorContainer = document.querySelector('.publication-authors');
+      var authorBlocks = authorContainer.querySelectorAll('.author-block');
+
+      // Get references to the first two author spans
+      var author1 = authorBlocks[0];
+      var author2 = authorBlocks[1];
+
+      // Determine the order based on a random coin flip (0 or 1)
+      var coinFlip = Math.floor(Math.random() * 2);
+
+      // Swap the order of the first two authors if coinFlip is 1
+      if (coinFlip === 1) {
+        authorContainer.insertBefore(author2, author1);
+      }
+    }
+
+    // Call the shuffle function when the page loads
+    window.onload = shuffleFirstTwoAuthors;
+  </script>
+</head>
+
+<body>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+        <a class="navbar-item" href="https://concept-graphs.github.io">
+          <span class="icon">
+            <i class="fas fa-home"></i>
+          </span>
+        </a>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Related Research
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://concept-fusion.github.io">
+              ConceptFusion
+            </a>
+            <a class="navbar-item" href="https://gradslam.github.io">
+              GradSLAM
+            </a>
+            <a class="navbar-item" href="https://sayplan.github.io/">
+              SayPlan
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-2 publication-title">ConceptGraphs: Open-Vocabulary 3D Scene Graphs for Perception and
+              Planning</h1>
+            <h2 class="title is-6 publlication-title">Preprint</h2>
+            <div class="is-size-6 publication-authors">
+              <span class="author-block">
+                <a href="https://georgegu1997.github.io/">Qiao Gu</a><sup>3</sup><sup>*</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://www.alihkw.com/">Alihusein Kuwajerwala</a><sup>2</sup><sup>*</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://sachamorin.github.io/">Sacha Morin</a><sup>2</sup><sup>*</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://krrish94.github.io">Krishna Murthy Jatavallabhula</a><sup>1</sup><sup>*</sup>,
+              </span>
+              <br>
+              <span class="author-block">
+                <a href="https://bipashasen.github.io/">Bipasha Sen</a><sup>2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://skymanaditya1.github.io/">Aditya Agarwal</a><sup>2</sup>,
+              </span>
+              <span class="author-block">
+                <a
+                  href="https://www.jhuapl.edu/work/our-organization/research-and-exploratory-development/red-staff-directory/corban-rivera">Corban
+                  Rivera</a><sup>5</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=92bmh84AAAAJ">William Paul</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://mila.quebec/en/person/kirsty-ellis/">Kirsty Ellis</a><sup>2</sup>,
+              </span>
+              <br>
+              <span class="author-block">
+                <a href="https://engineering.jhu.edu/faculty/rama-chellappa/">Rama Chellappa</a><sup>6</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://people.csail.mit.edu/ganchuang/">Chuang Gan</a><sup>7</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://celsodemelo.net/">Celso Miguel de Melo</a><sup>8</sup>,
+              </span>
+              <br>
+              <span class="author-block">
+                <a href="http://web.mit.edu/cocosci/josh.html">Joshua B. Tenenbaum</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://groups.csail.mit.edu/vision/torralbalab/">Antonio Torralba</a><sup>1</sup>
+              </span>
+              <span class="author-block">
+                <a href="http://www.cs.toronto.edu/\~florian/">Florian Shkurti</a><sup>3</sup>,
+              </span>
+              <span class="author-block">
+                <a href="http://liampaull.ca">Liam Paull</a><sup>2</sup>,
+              </span>
+            </div>
+
+            <div class="is-size-6 publication-authors">
+              <span class="author-block"><sup>1</sup>MIT,</span>
+              <span class="author-block"><sup>2</sup>Université de Montréal,</span>
+              <span class="author-block"><sup>3</sup>University of Toronto,</span>
+              <span class="author-block"><sup>4</sup>IIIT Hyderabad,</span>
+              <span class="author-block"><sup>5</sup>JHU APL,</span>
+              <span class="author-block"><sup>6</sup>JHU,</span>
+              <span class="author-block"><sup>7</sup>UMass Amherst,</span>
+              <span class="author-block"><sup>8</sup>DEVCOM Army Research Laboratory</span>
+            </div>
+
+            <div class="is-size-7 publication-authors">
+              <span class="author-block"><sup>*</sup>Equal contribution</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- PDF Link. -->
+                <span class="link-block">
+                  <a href="assets/pdf/2023-ConceptGraphs.pdf" class="external-link button is-normal ">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="#" class="external-link button is-normal " disabled="true">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                <!-- Video Link. -->
+                <span class="link-block">
+                  <a href="#" class="external-link button is-normal " disabled="true">
+                    <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                    </span>
+                    <span>Video</span>
+                  </a>
+                </span>
+                <!-- Code Link. -->
+                <span class="link-block">
+                  <a href="#" class="external-link button is-normal " disabled="true">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <!-- <video id="teaser" autoplay muted loop playsinline height="100%"> -->
+        <img source src="./static/images/splash.gif" />
+        <!-- </video> -->
+        <h2 class="subtitle has-text-centered">
+          <span class="coolname">ConceptGraphs</span> builds open-vocabulary 3D scenegraphs that enable a broad range of
+          perception and task planning capabilities.
+        </h2>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="hero is-light is-small">
+    <div class="hero-body">
+      <div class="container">
+        <div id="results-carousel" class="carousel results-carousel">
+          <!-- <div class="item">
+            <video poster="" id="image-text-rubiks-cube" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/image_text_rubiks_cube.mp4" type="video/mp4">
+            </video>
+          </div> -->
+          <div class="item">
+            <video poster="" id="laundry-bag" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/laundry_bag.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" id="michael-jordan-image" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/michael_jordan_image.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" id="ronald-macdonald-shoes-missing" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/ronald_macdonald_shoes_missing.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" id="power-outlet" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/power_outlet.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" id="ronald-macdonald-shoes" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/ronald_macdonald_shoes.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" id="space-party-missing" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/space_party_missing.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" id="screwdriver-powerdrill" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/screwdriver_powerdrill.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" id="snoopy" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/snoopy.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" id="space-party" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/space_party.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" id="wobbly-sensor-fix" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/wobbly_sensor_fix.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+
+      <!-- Paper video. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Video</h2>
+          <div class="publication-video">
+            <iframe src="https://www.youtube.com/embed/rkXgws8fiDs" title="YouTube video player" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+      <!--/ Paper video. -->
+
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              For robots to perform a wide variety of tasks, they require a 3D representation of the world that is
+              semantically rich, yet compact and efficient for task-driven perception and planning.
+              Recent approaches have attempted to leverage features from large vision-language models to encode
+              semantics in 3D representations.
+              However, these approaches tend to produce maps with per-point feature vectors, which do not scale well in
+              larger environments, nor do they contain semantic spatial relationships between entities in the
+              environment, which are useful for downstream planning.
+              In this work, we propose <span class="coolname">ConceptGraphs</span>, an open-vocabulary graph-structured
+              representation for 3D scenes.
+              <span class="coolname">ConceptGraphs</span> is built by leveraging 2D foundation models and fusing their
+              output to 3D by multi-view
+              association.
+              The resulting representations generalize to novel semantic classes, without the need to collect large 3D
+              datasets or finetune models.
+              We demonstrate the utility of this representation through a number of downstream planning tasks that are
+              specified through abstract (language) prompts and require complex reasoning over spatial and semantic
+              concepts.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--/ Abstract. -->
+
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Approach</h2>
+
+          <!-- Interpolating. -->
+          <!-- <h3 class="title is-4">Overview of <span class="coolname">ConceptGraphs</span></h3> -->
+          <div class="content has-text-justified">
+            <p>
+              <span class="coolname">ConceptGraphs</span> builds an open-vocabulary 3D scene graph from a sequence of
+              posed RGB-D images. We use generic instance segmentation models to segment regions from RGB images,
+              extract semantic feature vectors for each, and project them to a 3D point cloud. These regions are
+              incrementally associated and fused from multiple views, resulting in a set of 3D objects and associated
+              vision (and language) descriptors. Then large vision and language models are used to caption each mapped
+              3D objects and derive inter-object relations, which generates the edges to connect the set of objects and
+              form a graph. The resulting 3D scene graph provides a structured and comprehensive understanding of the
+              scene and can further be easily translated to a text description, useful for LLM-based task planning.
+            </p>
+            <img src="./static/images/pipeline.png" />
+          </div>
+          <br />
+        </div>
+      </div>
+
+
+      <div class="columns is-centered">
+
+        <!-- Zero-shot pixel alignment -->
+        <div class="column">
+          <div class="content">
+            <h2 class="title is-3">Zero-shot pixel alignment</h2>
+            <div class="interpolation-image-wrapper-zero-shot">
+              <img src="./static/images/pixel-aligned-feature-computation.png" />
+            </div>
+            <p>
+              For each image, the global (f<sub>G</sub>) and local (f<sub>L</sub>) features are fused to obtain our
+              pixel-aligned features (f<sub>P</sub>). <i>Top-left</i>: We first compute cosine similarities between each
+              local feature (f<sub>L</sub>) with the global feature (f<sub>G</sub>). <i>Top-right</i>: We compute an
+              inter-feature similarity matrix, and compute the average similarity of each local feature to every other
+              local feature, denoted φ̄<sub>i</sub> . <i>Bottom-left</i>: We combine these similarities to produce
+              weights for fusing f<sub>G</sub> and f<sub>L</sub> to obtain pixel-aligned features f<sub>P</sub>.
+            </p>
+          </div>
+        </div>
+        <!--/ Zero-shot pixel alignment -->
+
+        <!-- Long-tailed concepts -->
+        <div class="column">
+          <h2 class="title is-3">Retaining fine-grained concepts</h2>
+          <div class="columns is-centered">
+            <div class="column content">
+              <div class="interpolation-image-wrapper-fine-grained">
+                <img src="./static/images/pixel-aligned-qualitative.png" />
+              </div>
+              <p>
+                Our approach to computing pixel-aligned features is adept at capturing long-tailed and fine-grained
+                concepts. The plots to the right show the similarity scores between the embeddings of the cropped image
+                regions corresponding to diet coke, lysol, and yogurt and their text embeddings, predicted by the base
+                CLIP model used by LSeg and OpenSeg respectively. This implies that the base CLIP models know these
+                concepts, yet, as can be seen on the tiled plots (center), LSeg and OpenSeg are not able to retrieve
+                these concepts; they forget the concepts when finetuned. On the other hand, our zero-shot
+                pixel-alignment approach does not suffer this drawback, and clearly delineates the corresponding pixels.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!--/ Long-tailed concepts -->
+
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3">Experiments on real robotic systems</h2>
+      <div class="columns is-centered">
+
+        <!-- Tabletop rearrangement -->
+        <div class="column">
+          <div class="content">
+            <h3 class="title is-3">Tabletop rearrangement</h3>
+            <div class="interpolation-image-wrapper-tabletop">
+              <img src="./static/images/rearrangement.png" />
+            </div>
+            <p>
+              The robot is provided with rearrangment goals involving novel objects. (Top row) push goldfish to the
+              right of the yellow line, where goldfish refers to the brandname of the pack of Cheddar snack. (Bottom
+              row) push baymax to the right of the yellow line, where baymax refers to the plush toy depicting the
+              famous Disney character.
+            </p>
+          </div>
+        </div>
+        <!--/ Tabletop rearrangement -->
+
+        <!-- Self-driving -->
+        <div class="column">
+          <h3 class="title is-3">Autonomous driving</h3>
+          <div class="columns is-centered">
+            <div class="column content">
+              <img src="./static/images/driving.png" />
+              <p>
+                (Left to right; top to bottom) Autonomous drive-by-wire platform deployed; pointcloud map of the
+                environment with the response to the openset text-query ”football field” (shown in red); path found to
+                the football field (shown in red); car successfully navigates to the destination autonomously. See our
+                anonymized webpage for more results.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!--/ Self-driving -->
+    </div>
+  </section>
+
+
+  <section class="section" id="concurrent work">
+    <div class="container is-max-desktop content">
+      <!-- Concurrent Work. -->
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Concurrent work</h2>
+
+          <div class="content has-text-justified">
+            <p>
+              Given the pace of AI research these days, it is extremely challenging to keep up with all of the work
+              around foundation models and open-set perception. We list below a few key approaches that we have come
+              across after finalizing the ConceptGraphs system. If we may have inadvertently missed out on key
+              concurrent work, please reach out to us over email (or better, open a pull request on <a
+                href="https://github.com/concept-graphs/concept-graphs.github.io">our GitHub page</a>).
+            </p>
+            <p>
+              <a href="https://openreview.net/forum?id=gVBvtRqU1_">OVIR-3D</a> is an open-vocabulary 3D instance-level
+              mapping system that reconstructs an objects from RGB-D images and known poses. Each object is additionally
+              assigned a CLIP embedding for text-query-based retrieval.
+            </p>
+            <p>
+              <a href="https://openmask3d.github.io/">OpenMask3D</a> performs 3D instance segmentation (on pointcloud
+              data) based on open-vocabulary queries (specified as text).
+            </p>
+            <p>
+              <a href="https://openreview.net/forum?id=cjEI5qXoT0">OVSG</a> reconstructs open-vocabulary 3D scene graphs
+              using OVIR-3D and a graph network encoder.
+            </p>
+            <p>
+              <a href="https://sayplan.github.io/">SayPlan</a> demonstrates an efficient planning mechanism using LLMs
+              and 3D Scene Graphs (assumed available).
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--/ Concurrent Work. -->
+
+    </div>
+  </section>
+
+
+  <script type="text/javascript">
+    $(function () {
+      var screenWidth = $(window).width();
+      if (screenWidth >= 800) {
+        $('#gpt-video-1').attr('autoplay', 'autoplay');
+      }
+      if (screenWidth >= 800) {
+        $('#gpt-video-2').attr('autoplay', 'autoplay');
+      }
+      if (screenWidth >= 800) {
+        $('#click-query-icl').attr('autoplay', 'autoplay');
+      }
+    });
+  </script>
+
+
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@article{conceptgraphs,
+  author    = {Gu, Qiao and Kuwajerwala, Alihusein and Morin, Sacha and Jatavallabhula, {Krishna Murthy} and  Sen, Bipasha and Agarwal, Aditya and Rivera, Corban and Paul, William and Ellis, Kirsty and Chellappa, Rama and Gan, Chuang and {de Melo}, {Celso Miguel} and Tenenbaum, {Joshua B.} and Torralba, Antonio and Shkurti, Florian and Paull, Liam},
+  title     = {ConceptGraphs: Open-Vocabulary 3D Scene Graphs for Perception and Planning},
+  journal   = {arXiv},
+  year      = {2023},
+}</code></pre>
+    </div>
+  </section>
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <a class="icon-link" href="./assets/pdf/2023-ConceptGraphs.pdf">
+          <i class="fas fa-file-pdf"></i>
+        </a>
+        <a class="icon-link" href="https://github.com/concept-graphs" class="external-link" disabled>
+          <i class="fab fa-github"></i>
+        </a>
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+          <img alt="Creative Commons License" style="border-width:0"
+            src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+        </a>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              This website adapted from the Nerfies templates, which is licensed under a <a rel="license"
+                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0
+                International License</a>.
+            </p>
+            <p>
+              This means you are free to borrow the <a
+                href="https://github.com/concept-fusion/concept-fusion.github.io">source code</a> of this website,
+              we just ask that you link back to the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies
+                source code</a> in the footer.
+              Please remember to remove the analytics code included in the header of the website which you do not want
+              on your website.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
