@@ -157,13 +157,13 @@
                 <a href="http://web.mit.edu/cocosci/josh.html">Joshua B. Tenenbaum</a><sup>1</sup>,
               </span>
               <span class="author-block">
-                <a href="https://groups.csail.mit.edu/vision/torralbalab/">Antonio Torralba</a><sup>1</sup>
+                <a href="https://groups.csail.mit.edu/vision/torralbalab/">Antonio Torralba</a><sup>1</sup>,
               </span>
               <span class="author-block">
                 <a href="http://www.cs.toronto.edu/\~florian/">Florian Shkurti</a><sup>3</sup>,
               </span>
               <span class="author-block">
-                <a href="http://liampaull.ca">Liam Paull</a><sup>2</sup>,
+                <a href="http://liampaull.ca">Liam Paull</a><sup>2</sup>
               </span>
             </div>
 
@@ -203,7 +203,7 @@
                 </span>
                 <!-- Video Link. -->
                 <span class="link-block">
-                  <a href="#" class="external-link button is-normal " disabled="true">
+                  <a href="https://youtu.be/mRhNkQwRYnc" class="external-link button is-normal ">
                     <span class="icon">
                       <i class="fab fa-youtube"></i>
                     </span>
@@ -212,7 +212,7 @@
                 </span>
                 <!-- Code Link. -->
                 <span class="link-block">
-                  <a href="#" class="external-link button is-normal " disabled="true">
+                  <a href="https://github.com/concept-graphs/concept-graphs" class="external-link button is-normal ">
                     <span class="icon">
                       <i class="fab fa-github"></i>
                     </span>
@@ -231,9 +231,10 @@
   <section class="hero teaser">
     <div class="container is-max-desktop">
       <div class="hero-body">
-        <!-- <video id="teaser" autoplay muted loop playsinline height="100%"> -->
-        <img source src="./static/images/splash.gif" />
-        <!-- </video> -->
+        <video id="teaser" autoplay muted loop playsinline height="100%">
+          <!-- <img source src="./static/images/splash.gif" /> -->
+          <source src="./static/videos/splash.mp4" type="video/mp4">
+        </video>
         <h2 class="subtitle has-text-centered">
           <span class="coolname">ConceptGraphs</span> builds open-vocabulary 3D scenegraphs that enable a broad range of
           perception and task planning capabilities.
@@ -258,8 +259,13 @@
             </video>
           </div>
           <div class="item">
-            <video poster="" id="michael-jordan-image" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/michael_jordan_image.mp4" type="video/mp4">
+            <video poster="" id="spot-duck" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/spot_duck.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" id="ronald-macdonald-shoes" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/ronald_macdonald_shoes.mp4" type="video/mp4">
             </video>
           </div>
           <div class="item">
@@ -273,13 +279,23 @@
             </video>
           </div>
           <div class="item">
-            <video poster="" id="ronald-macdonald-shoes" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/ronald_macdonald_shoes.mp4" type="video/mp4">
+            <video poster="" id="spot-mango" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/spot_mango.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" id="space-party" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/space_party.mp4" type="video/mp4">
             </video>
           </div>
           <div class="item">
             <video poster="" id="space-party-missing" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/space_party_missing.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" id="michael-jordan-image" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/michael_jordan_image.mp4" type="video/mp4">
             </video>
           </div>
           <div class="item">
@@ -290,11 +306,6 @@
           <div class="item">
             <video poster="" id="snoopy" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/snoopy.mp4" type="video/mp4">
-            </video>
-          </div>
-          <div class="item">
-            <video poster="" id="space-party" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/space_party.mp4" type="video/mp4">
             </video>
           </div>
           <div class="item">
@@ -316,7 +327,7 @@
         <div class="column is-four-fifths">
           <h2 class="title is-3">Video</h2>
           <div class="publication-video">
-            <iframe src="https://www.youtube.com/embed/rkXgws8fiDs" title="YouTube video player" frameborder="0"
+            <iframe src="https://www.youtube.com/embed/mRhNkQwRYnc" title="YouTube video player" frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen></iframe>
           </div>
@@ -363,9 +374,6 @@
       <div class="columns is-centered">
         <div class="column is-full-width">
           <h2 class="title is-3">Approach</h2>
-
-          <!-- Interpolating. -->
-          <!-- <h3 class="title is-4">Overview of <span class="coolname">ConceptGraphs</span></h3> -->
           <div class="content has-text-justified">
             <p>
               <span class="coolname">ConceptGraphs</span> builds an open-vocabulary 3D scene graph from a sequence of
@@ -386,41 +394,42 @@
 
       <div class="columns is-centered">
 
-        <!-- Zero-shot pixel alignment -->
+        <!-- Relocalization (particle filter) -->
         <div class="column">
           <div class="content">
-            <h2 class="title is-3">Zero-shot pixel alignment</h2>
+            <h2 class="title is-3">Re-localization</h2>
             <div class="interpolation-image-wrapper-zero-shot">
-              <img src="./static/images/pixel-aligned-feature-computation.png" />
+              <video poster="" id="snoopy" autoplay controls muted loop playsinline height="100%">
+                <source src="./static/videos/particle_filter.mp4" type="video/mp4">
+              </video>
             </div>
             <p>
-              For each image, the global (f<sub>G</sub>) and local (f<sub>L</sub>) features are fused to obtain our
-              pixel-aligned features (f<sub>P</sub>). <i>Top-left</i>: We first compute cosine similarities between each
-              local feature (f<sub>L</sub>) with the global feature (f<sub>G</sub>). <i>Top-right</i>: We compute an
-              inter-feature similarity matrix, and compute the average similarity of each local feature to every other
-              local feature, denoted φ̄<sub>i</sub> . <i>Bottom-left</i>: We combine these similarities to produce
-              weights for fusing f<sub>G</sub> and f<sub>L</sub> to obtain pixel-aligned features f<sub>P</sub>.
+              We emply <span class="coolname">ConceptGraphs</span> to localize the robot in a previously mapped
+              environment. Each object encodes a CLIP embedding, which is employed in a landmark-based particle-filter
+              that uses cosine similarity to compute particle weights. Within a few iterations, the robot localizes
+              accurately. In our explainer video, we also demonstrate mapping newly-detected objects that were not
+              present in the original map.
             </p>
           </div>
         </div>
-        <!--/ Zero-shot pixel alignment -->
+        <!--/ Relocalization (particle filter) -->
 
-        <!-- Long-tailed concepts -->
+        <!-- Text queries via CLIP / GPT-4 -->
         <div class="column">
-          <h2 class="title is-3">Retaining fine-grained concepts</h2>
+          <h2 class="title is-3">Text queries via CLIP or GPT-4</h2>
           <div class="columns is-centered">
             <div class="column content">
-              <div class="interpolation-image-wrapper-fine-grained">
-                <img src="./static/images/pixel-aligned-qualitative.png" />
-              </div>
+              <video poster="" id="snoopy" autoplay controls muted loop playsinline height="100%">
+                <source src="./static/videos/nasa-both.mp4" type="video/mp4">
+              </video>
               <p>
-                Our approach to computing pixel-aligned features is adept at capturing long-tailed and fine-grained
-                concepts. The plots to the right show the similarity scores between the embeddings of the cropped image
-                regions corresponding to diet coke, lysol, and yogurt and their text embeddings, predicted by the base
-                CLIP model used by LSeg and OpenSeg respectively. This implies that the base CLIP models know these
-                concepts, yet, as can be seen on the tiled plots (center), LSeg and OpenSeg are not able to retrieve
-                these concepts; they forget the concepts when finetuned. On the other hand, our zero-shot
-                pixel-alignment approach does not suffer this drawback, and clearly delineates the corresponding pixels.
+                We demonstrate the ability of <span class="coolname">ConceptGraphs</span> to answer open-set text
+                queries. Each object in the scene graphs contains an associated CLIP embedding (fused from multi-view
+                images), as well as a text caption. While the CLIP embeddings work well across a wide range of queries,
+                they fail when the queries reference multiple concepts, involve negation, or complex composition. We may
+                also use LLMs (here, GPT-4) to find objects that address the text query. This approach performs better,
+                especially on complex queries, but requires access to an LLM at inference time (while the CLIP
+                text-query approach is easily deployable on CPUs on-board the robot).
               </p>
             </div>
 
@@ -435,44 +444,46 @@
 
   <section class="section">
     <div class="container is-max-desktop">
-      <h2 class="title is-3">Experiments on real robotic systems</h2>
+      <!-- <h2 class="title is-3">Queries with both text and image context</h2> -->
       <div class="columns is-centered">
 
-        <!-- Tabletop rearrangement -->
+        <!-- text + image -->
         <div class="column">
           <div class="content">
-            <h3 class="title is-3">Tabletop rearrangement</h3>
-            <div class="interpolation-image-wrapper-tabletop">
-              <img src="./static/images/rearrangement.png" />
-            </div>
+            <h3 class="title is-3">Queries with both text and image context</h3>
+            <video poster="" id="snoopy" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/jackal_visual_mj.mp4" type="video/mp4">
+            </video>
             <p>
-              The robot is provided with rearrangment goals involving novel objects. (Top row) push goldfish to the
-              right of the yellow line, where goldfish refers to the brandname of the pack of Cheddar snack. (Bottom
-              row) push baymax to the right of the yellow line, where baymax refers to the plush toy depicting the
-              famous Disney character.
+              We can also handle text queries that include context from an additional image. In this example, we
+              the robot looks at an image of Michael Jordan, and is given a text query "something this guy would play
+              with". It is able to locate the basketball in the scene.
             </p>
           </div>
         </div>
-        <!--/ Tabletop rearrangement -->
+        <!--/ text + image -->
 
-        <!-- Self-driving -->
+        <!-- traversability -->
         <div class="column">
-          <h3 class="title is-3">Autonomous driving</h3>
+          <h3 class="title is-3">Traversability puzzle</h3>
           <div class="columns is-centered">
             <div class="column content">
-              <img src="./static/images/driving.png" />
+              <video poster="" id="snoopy" autoplay controls muted loop playsinline height="100%">
+                <source src="./static/videos/jackal-traversability.mp4" type="video/mp4">
+              </video>
               <p>
-                (Left to right; top to bottom) Autonomous drive-by-wire platform deployed; pointcloud map of the
-                environment with the response to the openset text-query ”football field” (shown in red); path found to
-                the football field (shown in red); car successfully navigates to the destination autonomously. See our
-                anonymized webpage for more results.
+                The Jackal robot solving a traversability challenge. All paths to the goal are obstructed by objects. We
+                query an LLM to identify which objects can be safely pushed or traversed by the robot (green) and which
+                objects would be too heavy or hinder the robot’s movement (red). The LLM relies on the ConceptGraphs
+                node captions to make traversability predictions and we add the non-traversable objects to the Jackal
+                costmap for path planning. The Jackal successfully reaches the goal by going through a curtain and
+                pushing a basketball, while also avoiding contact with bricks, an iron dumbbell, and a flower pot.
               </p>
             </div>
-
           </div>
         </div>
       </div>
-      <!--/ Self-driving -->
+      <!--/ traversability -->
     </div>
   </section>
 
